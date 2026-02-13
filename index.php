@@ -15,6 +15,7 @@ $result = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,28 +24,36 @@ $result = $conn->query($sql);
     <style>
         /* --- Styles to fix navigation overlap (can be moved to style.css) --- */
         header nav {
-            display: flex; /* Use flexbox for the navigation */
-            justify-content: space-between; /* Distribute items with space between */
-            align-items: center; /* Vertically center items */
-            padding: 0 490px; /* Add horizontal padding for spacing */
-            flex-wrap: wrap; /* Allow items to wrap if space is limited */
+            display: flex;
+            /* Use flexbox for the navigation */
+            justify-content: space-between;
+            /* Distribute items with space between */
+            align-items: center;
+            /* Vertically center items */
+            padding: 0 490px;
+            /* Add horizontal padding for spacing */
+            flex-wrap: wrap;
+            /* Allow items to wrap if space is limited */
         }
 
         header nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: flex; /* Apply flexbox to main nav links */
+            display: flex;
+            /* Apply flexbox to main nav links */
             align-items: center;
         }
 
         /* Push the right-aligned list (containing welcome message) to the far right */
         header nav ul.nav-right {
-            margin-left: auto; /* This pushes it to the right */
+            margin-left: auto;
+            /* This pushes it to the right */
         }
 
         header nav ul li {
-            margin: 0 15px; /* Spacing between navigation items */
+            margin: 0 15px;
+            /* Spacing between navigation items */
         }
 
 
@@ -54,16 +63,20 @@ $result = $conn->query($sql);
             border-collapse: collapse;
             margin-top: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Blood Bank Management System</h1>
@@ -92,11 +105,11 @@ $result = $conn->query($sql);
             </div>
         </section>
 
-            <?php
-           
+        <?php
 
-            $conn->close(); // Close the database connection at the end of the script
-            ?>
+
+        $conn->close(); // Close the database connection at the end of the script
+        ?>
         </section>
     </main>
 
@@ -104,4 +117,5 @@ $result = $conn->query($sql);
         <p>&copy; 2025 Blood Bank Management System</p>
     </footer>
 </body>
+
 </html>

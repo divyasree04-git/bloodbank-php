@@ -4,7 +4,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     $host = "localhost";
     $username = "root";
     $password = "";
-    $database = "bloodbank";
+    $database = "bloodbank_db";
 } else {
     // Live database
     $host = "sql100.hstn.me";
