@@ -1,23 +1,21 @@
 <?php
 
 // Database connection parameters
-$servername = "localhost";
-$username = "root";
+$host = "sql100.hstn.me";
+$username = "mseet_41150722";
 // IMPORTANT: If you set a password for the 'root' user, put it here.
 // Otherwise, for default XAMPP setup, leave it as an empty string.
-$password = ""; // This is for an empty password for 'root'
-$dbname = "bloodbank_db"; // Your actual database name
+$password = "YOUR_VPANEL_PASSWORD"; // This is for an empty password for 'root'
+$dbname = "mseet_41150722_bloodbank"; // Your actual database name
 
 // Create a new MySQLi connection
 // The $conn variable will hold our database connection object
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $database);
 
 // Check if the connection was successful
-if ($conn->connect_error) {
-    // If connection fails, stop the script and display the error
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
-
 // Optional: You can echo a message here for initial testing,
 // but remove it for a production environment.
 // echo "Database Connected Successfully!";
