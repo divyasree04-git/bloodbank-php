@@ -5,16 +5,6 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-?>
-
-<?php
-session_start();
-require_once 'db_connection.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 $sql = "SELECT id, name, age, blood_group, contact FROM donors";
 $result = $conn->query($sql);
