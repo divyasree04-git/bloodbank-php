@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -12,7 +15,10 @@ ini_set('display_errors', 1);
 ?>
 
 <?php
-session_start(); // Start the session at the very beginning of the script
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// Start the session at the very beginning of the script
 require_once 'db_connection.php'; // Include the database connection
 
 // If the user is NOT logged in, redirect them to the login page

@@ -1,5 +1,8 @@
 <?php
-session_start(); // Start the session to manage user login status
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+// Start the session to manage user login status
 
 // IMPORTANT: Do NOT include db_connection.php here if you are not performing DB operations
 // on the login page itself. It can lead to early connection closing or resource issues.
