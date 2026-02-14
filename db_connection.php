@@ -9,7 +9,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     // Live database
     $host = "sql103.hstn.me";
     $username = "mseet_41156278";
-    $password = "YOUR_VPANEL_PASSWORD";
+    $password = "Divya123";
     $database = "mseet_41156278_bloodbank";
 }
 
