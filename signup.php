@@ -39,28 +39,89 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Signup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Blood Bank</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e60000;
+        }
+
+        .signup-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background: #e60000;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .signup-container button:hover {
+            background: #cc0000;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 10px;
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h2>Signup</h2>
+    <div class="signup-container">
+        <h2>Create Account</h2>
 
-    <?php if (!empty($message))
-        echo "<p style='color:red;'>$message</p>"; ?>
+                <?php if (!empty($message))
+                    echo "<div class='message'>$message</div>"; ?>
 
-    <form method="POST">
-        Username: <input type="text" name="username" required><br><br>
-        Password: <input type="password" name="password" required><br><br>
-        <button type="submit">Sign Up</button>
-    </form>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
 
-    <p>Already have account? <a href="login.php">Login</a></p>
+        <p style="text-align:center; margin-top:15px;">
+            Already have account? <a href="login.php">Login</a>
+        </p>
+
+    </div>
 
 </body>
 

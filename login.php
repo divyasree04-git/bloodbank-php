@@ -4,25 +4,23 @@ require_once("db_connection.php");
 
 $error_message = "";
 
-// If already logged in, go to home
+// If already logged in
 if (isset($_SESSION['user_id'])) {
   header("Location: index.php");
   exit();
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $username = trim($_POST['username']);
   $password = trim($_POST['password']);
 
-  // Fetch user from database
   $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
   $stmt->bind_param("s", $username);
   $stmt->execute();
   $result = $stmt->get_result();
 
-  if ($result->num_rows == 1) {
+  if ($result->num_rows === 1) {
 
     $user = $result->fetch_assoc();
 
@@ -44,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
