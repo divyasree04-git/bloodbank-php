@@ -1,4 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
+<?php
 session_start(); // Start the session at the very beginning of the script
 require_once 'db_connection.php'; // Include the database connection
 
