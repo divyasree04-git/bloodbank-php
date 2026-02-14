@@ -1,50 +1,47 @@
 <?php
 session_start();
-$_SESSION['user_id'] = $user['id'];
-$_SESSION['user_name'] = $user['name'];
+require_once("db_connection.php");
 
-header("Location: index.php");
-exit();
+$error_message = "";
 
-// Start the session to manage user login status
-
-// IMPORTANT: Do NOT include db_connection.php here if you are not performing DB operations
-// on the login page itself. It can lead to early connection closing or resource issues.
-// require_once 'db_connection.php'; // Removed this line
-
-$error_message = ""; // Initialize an empty variable for error messages
-
-// Check if the user is already logged in. If yes, redirect them to the home page.
-// This check is primarily for when a user *tries* to navigate to login.php while already authenticated.
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+// If already logged in, go to home
+if (isset($_SESSION['user_id'])) {
   header("Location: index.php");
-  exit(); // Stop script execution after redirection
+  exit();
 }
 
-// Handle the login form submission
+// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Get username and password from the submitted form, sanitize them
-  $username = trim($_POST['username'] ?? '');
-  $password = trim($_POST['password'] ?? '');
 
-  // --- Sample Credentials ---
-  $sample_username = "admin";
-  $sample_password = "password";
+  $username = trim($_POST['username']);
+  $password = trim($_POST['password']);
 
-  // Validate the entered credentials against the sample credentials
-  if ($username === $sample_username && $password === $sample_password) {
-    // Login successful: Set session variables
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $username; // Store the username in the session
-    $_SESSION['user_id'] = 1; // Example user ID
+  // Fetch user from database
+  $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+  $stmt->bind_param("s", $username);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-    // Redirect to the home page (index.php)
-    header("Location: index.php");
-    exit(); // Stop script execution after redirection
+  if ($result->num_rows == 1) {
+
+    $user = $result->fetch_assoc();
+
+    if (password_verify($password, $user['password'])) {
+
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['user_name'] = $user['username'];
+
+      header("Location: index.php");
+      exit();
+    } else {
+      $error_message = "Invalid password!";
+    }
+
   } else {
-    // Invalid credentials: Set an error message
-    $error_message = "Invalid username or password.";
+    $error_message = "User not found!";
   }
+
+  $stmt->close();
 }
 ?>
 
