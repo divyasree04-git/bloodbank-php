@@ -9,35 +9,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    if (!empty($name) && !empty($email) && !empty($password)) {
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Check if email already exists
+    $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $check->bind_param("s", $email);
+    $check->execute();
+    $check->store_result();
 
-        // Check email
-        $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $check->bind_param("s", $email);
-        $check->execute();
-        $check->store_result();
+    if ($check->num_rows > 0) {
+        $message = "Email already registered!";
+    } else {
 
-        if ($check->num_rows > 0) {
-            $message = "Email already registered!";
+        $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $name, $email, $hashed_password);
+
+        if ($stmt->execute()) {
+            header("Location: login.php");
+            exit();
         } else {
-
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $name, $email, $hashed_password);
-
-            if ($stmt->execute()) {
-                header("Location: login.php");
-                exit();
-            } else {
-                $message = "Something went wrong!";
-            }
-
-            $stmt->close();
+            $message = "Something went wrong!";
         }
 
-        $check->close();
+        $stmt->close();
     }
+
+    $check->close();
 }
 ?>
 
@@ -52,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <h2>Signup</h2>
 
-        <?php if (!empty($message))
-            echo "<p style='color:red;'>$message</p>"; ?>
+    <?php if (!empty($message))
+        echo "<p style='color:red;'>$message</p>"; ?>
 
     <form method="POST">
         Name: <input type="text" name="name" required><br><br>
@@ -62,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit">Sign Up</button>
     </form>
 
-    <p>Already have an account? <a href="login.php">Login</a></p>
+    <p>Already have account? <a href="login.php">Login</a></p>
 
 </body>
 

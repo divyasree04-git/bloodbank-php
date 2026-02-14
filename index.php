@@ -1,11 +1,21 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
+}
+?>
+<?php
+if (isset($_SESSION['user_name'])) {
+    echo "Welcome " . $_SESSION['user_name'];
+    echo " | <a href='logout.php'>Logout</a>";
+}
+?>
+
+
+if (!isset($_SESSION['user_id'])) {
+header("Location: login.php");
+exit();
 }
 ?>
 

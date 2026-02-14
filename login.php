@@ -1,7 +1,11 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
+session_start();
+$_SESSION['user_id'] = $user['id'];
+$_SESSION['user_name'] = $user['name'];
+
+header("Location: index.php");
+exit();
+
 // Start the session to manage user login status
 
 // IMPORTANT: Do NOT include db_connection.php here if you are not performing DB operations
