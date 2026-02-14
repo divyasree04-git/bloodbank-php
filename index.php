@@ -1,38 +1,33 @@
 <?php
 session_start();
+require_once 'db_connection.php';
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$sql = "SELECT id, name, age, blood_group, contact FROM donors";
+$result = $conn->query($sql);
 ?>
+
 <?php
 if (isset($_SESSION['user_name'])) {
     echo "Welcome " . $_SESSION['user_name'];
     echo " | <a href='logout.php'>Logout</a>";
 }
 ?>
-
-
-if (!isset($_SESSION['user_id'])) {
-header("Location: login.php");
-exit();
-}
-?>
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 // Start the session at the very beginning of the script
 require_once 'db_connection.php'; // Include the database connection
 
 // If the user is NOT logged in, redirect them to the login page
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+{
     header("Location: login.php");
     exit();
 }
@@ -117,6 +112,11 @@ $result = $conn->query($sql);
                 <li><a href="donors_directory.php">Donor Directory</a></li>
             </ul>
             <ul class="nav-right">
+                <li>
+                    Welcome
+                    <?php echo $_SESSION['user_name']; ?> |
+                    <a href="logout.php">Logout</a>
+                </li>
                 <!-- No Login/Logout link displayed here as per request -->
             </ul>
         </nav>
