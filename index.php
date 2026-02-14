@@ -30,10 +30,6 @@ require_once 'db_connection.php'; // Include the database connection
     header("Location: login.php");
     exit();
 }
-
-// --- Database Interaction Example: Fetching Donors (for homepage display) ---
-$sql = "SELECT id, name, age, blood_group, contact FROM donors";
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
