@@ -5,31 +5,6 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
-$sql = "SELECT id, name, age, blood_group, contact FROM donors";
-$result = $conn->query($sql);
-?>
-
-<?php
-if (isset($_SESSION['user_name'])) {
-    echo "Welcome " . $_SESSION['user_name'];
-    echo " | <a href='logout.php'>Logout</a>";
-}
-?>
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
-
-<?php
-// Start the session at the very beginning of the script
-require_once 'db_connection.php'; // Include the database connection
-
-// If the user is NOT logged in, redirect them to the login page
-{
-    header("Location: login.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
